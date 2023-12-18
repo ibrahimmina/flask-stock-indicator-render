@@ -11,7 +11,5 @@ def hello_world():
 
 @app.route('/about')
 def about():
-    startdate = dt.datetime.strptime("2023-01-01", "%Y-%m-%d").date()
-    enddate = dt.datetime.strptime("2023-01-02", "%Y-%m-%d").date()
 
-    return yf.download("AAPL", start=startdate, end=enddate, interval="1d")
+    return yf.download("AAPL", start="2023-01-01", end="2023-04-30")
