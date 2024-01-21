@@ -64,10 +64,16 @@ def index():
         image_data = request.files['image'].stream
         img = Image.open(image_data)
         image_data = np.asarray(img)
-        image_gray=cv2.cvtColor(image_data, cv2.COLOR_BGR2GRAY )
+        image_hsv=cv2.cvtColor(image_data, cv2.COLOR_BGR2HSV)
         
+        if name == "elephant":
+            image_hsv[:,:,2] = 200
+        elif name == "cat":
+            image_hsv[:,:,2] = 150
+        else:
+            image_hsv[:,:,2] = 250
         # encode
-        is_success, buffer = cv2.imencode(".jpg", image_gray)
+        is_success, buffer = cv2.imencode(".jpg", image_hsv)
         io_buf = io.BytesIO(buffer)
 
         # Convert to base64 encoding and show start of data
